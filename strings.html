@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Strings</title>
+</head>
+<body bgcolor="#4682b4" text="#444">
+<script>
+   var global = this;
+   var a = "";
+   var b = 'This is a test string on which we\'ll try different string methods';
+   var c = '3.14 Ali\'s '+'<br />';
+   var splittedB = b.split('t');
+   var e = '2sd';
+   var f = 's';
+   var email = "me@mail.com";
+    var emailReg= /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+   if(emailReg.test(email)){
+       console.log("email is fine");
+   }
+   var text = "This one is a test string for pattern testing: 1, 2 , 3";
+
+   // Finds any number
+   var pattern = /\d+/g;
+
+
+    document.write(b+"<br>");
+   document.write(text+"<br>");
+</script>
+<div style="background-color:burlywood "> <h3>chapter 3.1</h3>
+<button onclick="console.log(b.length)"/>Length</button><br />
+<button onclick="console.log(b.charAt(0))"/>charAt(0) </button><br />
+<button onclick="console.log(b.charAt(b.length-1))"/> charAt(b.length-1) </button><br />
+<button onclick="console.log(b.substring(1,4))"/>Substring 1-4 2nd, 3rd and 4th chars<br /> </button><br />
+<button onclick="console.log(b.slice(1,4))"/>slice(1-4) same thing<br /> </button><br />
+<button onclick="console.log(b.slice(-3))"/>slice(-3) last three chars<br /> </button><br />
+<button onclick="console.log(b.indexOf('t'))"/>indexof('t') position of the frst letter t<br /> </button><br />
+<button onclick="console.log(b.lastIndexOf('t'))"/>lastIndexOf('t') position of the last letter t<br /> </button><br />
+<button onclick="console.log(b.indexOf('t',3))"/>indexof('t',3) position of the frst letter t at or after 3<br /> </button><br />
+<button onclick="console.log(splittedB)"/> split at t </button><br />
+<button onclick="console.log(b.replace('s', '#'))"/>replace("s","#")  (only changes the first one)<br /> </button><br />
+<button onclick="console.log(b.replace(/s/g, '#'))"/>replace(/s/g,"#")(using regex key g it changes all of s chars<br /> </button><br />
+<button onclick="console.log(b.toUpperCase())"/>b.uppercase<br /> </button><br />
+</div>
+<div style="background-color: lightcyan"> <h3>chapter 3.2</h3>
+    <br />
+
+    <button onclick="console.log(pattern.test(text))"/>pattern.test<br /> </button><br />
+    <button onclick="console.log(text.search(pattern))"/>pattern.search (position of the first match) </button><br />
+    <button onclick="console.log(text.match(pattern))"/>pattern.match </button><br />
+</div>
+<div style="background-color:beige"> <h3>chapter 3.3 , 3.4</h3>
+    <script>
+      var a = 4; b = 2;
+      if(a == 4) {
+          b = b + 1;
+      } else {
+          a = a + 1;
+      }
+    </script>
+    <button onclick="console.log('a= '+ a + ' b= '+ b)"/> a and b in if statement<br /> </button><br />
+    var a = 4; b = 2;
+    if(a == 4) {
+    b = b + 1;
+    } else {
+    a = a + 1;
+    }<br />
+    <button onclick='alert("Six falsey values are: undefined, null, 0, -0, Nan, and empty string \&quot;\&quot; ")'/>Falsey Values<br /> </button><br />
+    <button onclick='console.log(typeof(null))'/>typeof null<br /> </button><br />
+    <button onclick='console.log(typeof(undefined))'/>typeof undefined<br /> </button><br />
+
+</div>
+    <div style="background-color:darkgray"> <h3>chapter 3.5</h3>
+        <button onclick='console.log(global)'/>Print the Global Object's properties<br /> </button><br />
+    </div>
+    <div style="background-color:lightcyan"> <h3>chapter 3.7</h3>
+        var o = {x:1}, p = {x:1};
+        o === p => ?
+        <script>
+            function objectCompareByVal() {
+                var o = {x:1}, p = {x:1};
+                if(o !== p) {
+                    console.log("Objects are not equal, even though they have the same properties.")
+                }
+            }
+             function objectCompareByRef() {
+                 var a = [];
+                 var b = a;
+                 b[0] = 1;
+                if( a === b) {
+                    console.log("Objects are equal when they point to the same value, reference the same thing");
+                }
+            }
+            function objectCopier() {
+                var a = ['a', 'b', 'c'];
+                var b = [];
+                console.log('a is ' + a + ' and b is ' + b + 'before the copy')
+                for(var i in a) {
+                    b[i] = a[i];
+                }
+                console.log('after the loop, b is ' + b);
+            }
+
+            function objectConverter() {
+                var a = true + 5;
+                console.log(a);
+            }
+
+            function numberConverter() {
+                var n = 17;
+                console.log(n.toString(2)+" "+ n.toString(8) + " " +n.toString(16));
+            }
+            function numberFormater() {
+                var n = 17.27;
+                console.log(n.toFixed(2));
+            }
+        </script>
+        <br/>
+        <button onclick='objectCompareByVal()'>Compare o and p objects by value<br /> </button><br />
+        object values are references, and we say that
+        objects are compared by reference: two object values are the same if and only if they
+        refer to the same underlying object.
+        <button onclick='objectCompareByRef()'>Compare o and p by reference<br /> </button><br />
+       To copy an object, each value must be copied using a loop. <br />
+       <button onclick='objectCopier()'> Copy a to b <br /> </button><br />
+
+        true gets converted to 1 if added to a number! <br />
+       <button onclick='objectConverter()'> add true to 5 <br /> </button><br />
+        Type conversion idioms: <br />
+        x + ""   // same as String(x) <br />
+        +x       // same as Number(x)<br />
+        !!x      // same as Boolean(x)<br />
+        toString(base) can convert numbers to different bases <br/>
+        <button onclick='numberConverter()'>show 17 in bases 2, 8 and 16 <br /> </button><br />
+        toFixed(2) converts the number to a string with 2 decimal points <br/>
+        toExponential() <br/>
+        toPrecision() <br/> 
+        <button onclick='numberFormater()'> log n= 17.27 n.toFixed(2)  <br /> </button><br />
+
+    </div>
+</body>
+
+</html>

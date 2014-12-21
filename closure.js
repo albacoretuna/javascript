@@ -1,6 +1,6 @@
 // var sMessage = "Hello World!";
 // function sayHelloWorld(){
-// 	alert(sMessage);
+// 	console.log(sMessage);
 // 	}
 
 // 	sayHelloWorld();
