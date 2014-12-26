@@ -4,6 +4,18 @@
     <title>Strings</title>
 </head>
 <body bgcolor="#4682b4" text="#444">
+<style>
+    button {
+        width: 99%;
+        margin: 0.2%;
+        height: 3em;
+        font-family: cursive;
+        font-size: medium;
+    }
+
+
+</style>
+
 <script>
    var global = this;
    var a = "";
@@ -50,17 +62,17 @@
 </div>
 <div style="background-color:beige"> <h3>chapter 3.3 , 3.4</h3>
     <script>
-      var a = 4; b = 2;
+      var a = 4;bb= 2;
       if(a == 4) {
-          b = b + 1;
+         bb=bb+ 1;
       } else {
           a = a + 1;
       }
     </script>
-    <button onclick="console.log('a= '+ a + ' b= '+ b)"/> a and b in if statement<br /> </button><br />
-    var a = 4; b = 2;
+    <button onclick="console.log('a= '+ a + ' b= '+ b)"/> a andbbin if statement<br /> </button><br />
+    var a = 4;bb= 2;
     if(a == 4) {
-    b = b + 1;
+   bb=bb+ 1;
     } else {
     a = a + 1;
     }<br />
@@ -93,7 +105,7 @@
             function objectCopier() {
                 var a = ['a', 'b', 'c'];
                 var b = [];
-                console.log('a is ' + a + ' and b is ' + b + 'before the copy')
+                console.log('a is ' + a + ' and b is ' + b + 'before the copy');
                 for(var i in a) {
                     b[i] = a[i];
                 }
@@ -133,10 +145,170 @@
         <button onclick='numberConverter()'>show 17 in bases 2, 8 and 16 <br /> </button><br />
         toFixed(2) converts the number to a string with 2 decimal points <br/>
         toExponential() <br/>
-        toPrecision() <br/> 
+        toPrecision() <br/>
         <button onclick='numberFormater()'> log n= 17.27 n.toFixed(2)  <br /> </button><br />
 
     </div>
-</body>
+    <div style="background-color:cadetblue"> <h3>chapter 3.10</h3>
+        each time the outer function is called, the inner function is
+        defined again. Since the scope chain differs on each invocation of the outer function,
+        the inner function will be subtly different each time it is defined—the code of the inner
+        function will be identical on each invocation of the outer function, but the scope chain
+        associated with that code will be different.
+    </div>
+    <div style="background-color:cornsilk"> <h3> You don't know JS, closures</h3>
+        function foo(a) {
+            var b = a;
+            return a + b;
+        }
 
+        var c = foo( 2 );
+
+        Engine: Hey scope I have an RHS for foo
+        Scope: yes compiler defined it it's a function
+        Engin and I have a LHS for c
+        Scope: Yes it's a vriable.
+
+    </div>
+    <div style="background-color:aquamarine"> <h3>chapter 3.10</h3>
+        expression.identifier <br>
+        expression[ expression ] <br>
+        object["property"] <br>
+        document['createElement']('pre'); <br>
+        var oObj = {x:1, y:{z:3}}; <br>
+        var aObj = [o,4,[5,6]];
+    <script>
+        function obAccess(){
+            var oObj = {x:1, y:{z:3}};
+            var aObj = [0,4,[5,6]];
+            console.log(aObj[2]["1"]);
+        }
+    </script>
+
+
+    <button onclick='obAccess()'> aObj[2]["1"]</button><br />
+
+    </div>
+<div style="background-color:#50d964"> <h3>chapter 4.9.2 Relational</h3>
+    use String.localeCompare() for strings <br>
+    + operator favors strings, it converts to strings mostly. Comparison operator favors numbers, it only does string comparison only if both operands are strings <br>
+    1 + 2  // 3 <br>
+    "1" + 2 // "12" <br>
+    11 < 3  // numeric comparison. false<br>
+    "11" < 3 // numeric comparison, 11 is converted to number. false<br>
+    "one" < 3  // "one" is converted to NaN, false<br>
+
+    </div>
+
+<div style="background-color:#f2f2f2"> <h3>chapter 4.9.3</h3>
+    in operator asks for property in object, returns true if that property exists<br>
+    var point = {x:1, y:1}<br>
+    "x" in point // true <br>
+    "z" in point   //  false<br>
+
+</div>
+<div style="background-color:#fccada"> <h3>chapter 4.9</h3>
+    instnaceof accepts two operands, left one is an object, right one a class of objects<br>
+    var d = new Date(); d instanceof Date; // true <br>
+    d instanceof Object; // true<br>
+    d instanceof Number; // false<br>
+</div>
+<div style="background-color:lightgray"> <h3>chapter 4.9 && and || and ?:</h3>
+    && evaluates its first side, if it's false, whole thing's false, if it's true, the next one is tested, if false, false, if tre, true.<br>
+    idiomatic use<br>
+    if(a==b) stop(); will be the same as<br>
+    (a==b) && stop(); <br>
+    || operator evaluates it's left hand side, if it's truthy, it returns that, if not the other side is returned.<br />
+    var max = max_width || prefreneces.max_width || 500; <br>
+
+    i = j = k = 0 // is read from right to left, setting all to zero <br>
+    If username exists, print it, if not print "there" <br>
+    greeting = "hello " + (username ? username : "there");
+
+
+
+<div style="background-color:#e6e2b0"> <h3> Professional ch 3 </h3>
+    To free up memory you can optionally set oMyObect = null; when you're done with an object.
+    <br/>
+    var o = new Array; <br/>
+    var o = new Array(); <br/>
+    var o = new Array(20); <br/>
+    var o = new Array("food", "drink", "play"); <br/>
+    var o = ["food", "drink"]; <br/>
+    if you assign at a faraway position, say at 25, all the members in between will be assigned null.
+    <script>
+    function arrayManager(a) {
+        var sampleText = "I really should write a novel one day."
+        var o = new Array;
+        console.log(o);
+        var o = new Array();
+        console.log(o);
+        var o = new Array(20);
+        console.log(o);
+        var o = new Array("firstMemberofO", "2ndMemberofO", "3rdMemberofO");
+        console.log(o);
+        var o = ["firstMemberofO", "2ndMemberofO", "3rdMemberofO"];
+        console.log(o);
+        o[25] = "25thMemberOfO";
+        console.log(o);
+        console.log(o[8]+"hello");
+        console.log(o.length);
+        console.log("calling o.tostring brings us this finally: \n "+ o.toString() + " \n Let's see what funcs do with this array \n ");
+        switch (a) {
+            case "join":
+            {
+                console.log(o.join(" ***inBetWeen*** "));
+            }
+            case "split":
+            {
+                console.log(sampleText.split(" "));
+            }
+            case "concat":
+            {
+                console.log(o.concat("IGotConcatedToO","MeToo"));
+            }
+            case "push":
+            {
+                o.push("I got pushed");
+                console.log("lenght-1 member, or the last member, of o now reads: "+o[o.length-1]);
+            }
+            case "shift":
+            {
+                console.log("the result of shift(): "+o.shift());
+                console.log("after running shift() o becomes: "+o.toString());
+
+            }
+            case "spliceRemove":
+            {
+                console.log( o.splice(0,2) + " \n Array o after splice looks like:" + o +" \n Note:splice(0,2) starts at 0 and removes 2 elements.");
+            }
+            case "spliceInsert":
+            {
+                console.log(o.splice(2, 0, "newThirdMember", "newFourthMember")+"\n o looks like this after splice \n" + o);
+            }
+            case "spliceRemoveInsert":
+            {
+                o.splice(2, 1, "newThird");
+                console.log(" \n Now array o looks like this: \n"+ o);
+            }
+
+        }
+    }
+    </script>
+    <button onclick='arrayManager()'>Demo Array <br /> </button><br />
+    <button onclick='arrayManager("join")'>join(" ***inBetWeen*** ");<br /> </button><br />
+    <button onclick='arrayManager("split")'>split(" ");<br /> </button><br />
+    <button onclick='arrayManager("concat")'>concat("IGotConcatedToO","MeToo");<br /> </button><br />
+    <button onclick='arrayManager("push")'>push("I got pushed")<br /> </button><br />
+    <button onclick='arrayManager("shift")'>o.shift() removes and returns the first member<br /> </button><br />
+    <br/> With push and shift we can make a queue data structure. ['1st','2ed','3rd']. arr.push('4th')
+    adds the 4th one into the the end of the array. And arr.shift(), takes the first member out.
+    <button onclick='arrayManager("spliceRemove")'>o.splice(0,2) starts at 0 and removes and returns next two elements<br /> </button><br />
+    <button onclick='arrayManager("spliceInsert")'>o.splice(2,0, "newThird", "newFourth") starts at 2, zero shows the number to delete, replaces the elements<br /> </button><br />
+    <button onclick='arrayManager("spliceRemoveInsert")'>o.splice(2,1, "newThird") starts at 2, removes one element, inserts the newThird in there<br /> </button><br />
+
+</div>
+
+</div>
+</body>
 </html>
