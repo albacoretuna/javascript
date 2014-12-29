@@ -12,7 +12,9 @@
         font-family: cursive;
         font-size: medium;
     }
-
+    div {
+        padding:1%;
+    }
 
 </style>
 
@@ -226,7 +228,7 @@
     greeting = "hello " + (username ? username : "there");
 
 
-
+</div>
 <div style="background-color:#e6e2b0"> <h3> Professional ch 3 </h3>
     To free up memory you can optionally set oMyObect = null; when you're done with an object.
     <br/>
@@ -238,6 +240,8 @@
     if you assign at a faraway position, say at 25, all the members in between will be assigned null.
     <script>
     function arrayManager(a) {
+        console.log("\n[+++++++++++++++++++++++++++++++++++++++++++++++++++++++]");
+        console.log("\n the parameter passed in is: " +a);
         var sampleText = "I really should write a novel one day."
         var o = new Array;
         console.log(o);
@@ -251,50 +255,44 @@
         console.log(o);
         o[25] = "25thMemberOfO";
         console.log(o);
-        console.log(o[8]+"hello");
+
         console.log(o.length);
         console.log("calling o.tostring brings us this finally: \n "+ o.toString() + " \n Let's see what funcs do with this array \n ");
+        console.log("\n[+++++++++++++++++++++++++++++++++++++++++++++++++++++++]\n");
         switch (a) {
             case "join":
-            {
                 console.log(o.join(" ***inBetWeen*** "));
-            }
+                break;
             case "split":
-            {
                 console.log(sampleText.split(" "));
-            }
+                break;
             case "concat":
-            {
                 console.log(o.concat("IGotConcatedToO","MeToo"));
-            }
+                break;
             case "push":
-            {
                 o.push("I got pushed");
                 console.log("lenght-1 member, or the last member, of o now reads: "+o[o.length-1]);
-            }
+                break;
             case "shift":
-            {
                 console.log("the result of shift(): "+o.shift());
                 console.log("after running shift() o becomes: "+o.toString());
-
-            }
+                break;
             case "spliceRemove":
-            {
                 console.log( o.splice(0,2) + " \n Array o after splice looks like:" + o +" \n Note:splice(0,2) starts at 0 and removes 2 elements.");
-            }
+                break;
             case "spliceInsert":
-            {
                 console.log(o.splice(2, 0, "newThirdMember", "newFourthMember")+"\n o looks like this after splice \n" + o);
-            }
+                break;
             case "spliceRemoveInsert":
-            {
                 o.splice(2, 1, "newThird");
                 console.log(" \n Now array o looks like this: \n"+ o);
+                break;
+            default:
+                console.log("\n no parametere came in! \n ")
             }
 
         }
-    }
-    </script>
+     </script>
     <button onclick='arrayManager()'>Demo Array <br /> </button><br />
     <button onclick='arrayManager("join")'>join(" ***inBetWeen*** ");<br /> </button><br />
     <button onclick='arrayManager("split")'>split(" ");<br /> </button><br />
@@ -309,6 +307,140 @@
 
 </div>
 
+</div>
+<div style="background-color:aquamarine"> <h3> Professional ch 3 Dates</h3>
+   <script>
+       function dateManager(param) {
+        switch(param) {
+            case "parse":
+                var d = new Date(Date.parse("August 28, 1986"));
+                console.log(d);
+            break;
+            case "UTC":
+                var du = new Date(Date.UTC(1986, 7, 28, 9, 30));
+                console.log(du);
+                break;
+            case "toLocaleString":
+                var d = new Date(Date.parse("August 28, 1986"));
+                    console.log(d.toLocaleString());
+                break;
+            case "timezonDiff":
+                var dd = new Date();
+                console.log("Time zone difference is: "+dd.getTimezoneOffset());
+                break;
+            case "isDST":
+                var d1 = new Date(2004, 0, 1);
+                var d2 = new Date(2004, 6, 1);
+                var bSupportsDaylightSavingTime = d1.getTimezoneOffset() != d2.getTimezoneOffset();
+                console.log(((bSupportsDaylightSavingTime)?"Yes":"NO"));
+                console.log( "\n If different timezone offsets in jan and july, means DST is used");
+            break;
+        }
+
+       }
+
+   </script>
+    <button onclick='dateManager("parse")'>new Date(Date.parse("August 28, 1986")) // parse returns mili secs <br /> </button><br />
+    in UTC and Date only year and month are mandatory <br/>
+    <button onclick='dateManager("UTC")'>new Date(Date.UTC(1986, 7 , 28, 18, 30)) UTC also returns mili secs, but in yyyy,mm,dd,hh,mm,ss format <br /> </button><br />
+    <button onclick='dateManager("toLocaleString")'><br /> d.toLocaleString</button><br />
+    <button onclick='dateManager("timezonDiff")'><br /> d.getTimezoneOffset() </button><br />
+    <button onclick='dateManager("isDST")'><br /> Is dst used in your country? </button><br />
+</div>
+<div style="background-color:azure"> <h3> Objects </h3>
+    <script>
+        function playURI(param) {
+            var sUri = "http://www.gik.fi/illegal value.html#start";
+            var ecnodedCompUri = encodeURIComponent(sUri);
+            switch(param) {
+                case "encode":
+                    console.log(encodeURI(sUri));
+                    console.log(encodeURIComponent(sUri));
+                break;
+                case "decode":
+                    console.log(decodeURI(ecnodedCompUri));
+                    console.log(decodeURIComponent(ecnodedCompUri));
+                break;
+
+            }
+        }
+        function showColor() {
+            console.log(this.color);
+        }
+        function createCar(sColor, iDoors, iMpg) {
+            var oTempCar = new Object;
+            oTempCar.color = sColor;
+            oTempCar.doors = iDoors;
+            oTempCar.mpg = iMpg;
+            oTempCar.showColor = showColor;
+            return oTempCar;
+        }
+
+        var oCar1 = createCar("read", 4, 23);
+        var oCar2 = createCar("blue", 3, 25);
+        oCar1.showColor();
+        oCar2.showColor();
+
+        function createCarWithPrototype() {
+
+            // Using prototypes the above code will be
+            function Car() {
+            }
+
+            Car.prototype.color = "Black";
+            Car.prototype.doors = 4;
+            Car.prototype.mpg = 23;
+            Car.prototype.showColor = function () {
+                console.log(this.color);
+            };
+
+            var oCar3 = new Car();
+            var oCar4 = new Car();
+            console.log(oCar3);
+            console.log(oCar4);
+        }
+        function createCarWithPrototypeAndConstructor() {
+            function Car(sColor, iDoors, iMpg) {
+                this.color = sColor;
+                this.doors = iDoors;
+                this.mpg = iMpg;
+                this.drivers = new Array("Mike", "Sue");
+            }
+            Car.prototype.showColor = function () {
+                console.log(this.color);
+            };
+            var oCar1 = new Car('red',4, 23);
+            var oCar2 = new Car('blue', 3, 25);
+            oCar1.drivers.push('Matt');
+            console.log(oCar1.drivers);
+            console.log(oCar2.drivers);
+        }
+
+        function dynamicPrototypeMethod() {
+            function Car(sColor, iDoors, iMpg) {
+                this.color = sColor;
+                this.doors = iDoors;
+                this.mpg = iMpg;
+                this.drivers = new Array("mike", "sue");
+
+                if (typeof Car._initialized == "undefined") {
+                    Car.prototype.showColor = function () {
+                        console.log(this.color);
+                    };
+
+                    Car._initialized = true;
+                }
+            }
+        }
+    </script>
+    <button onclick='playURI("encode")'> encodeURI and encodeURIComponent </button><br />
+    encodeURIComponent kills full urls, it should be used only for after slash parts.
+    <button onclick='playURI("decode")'> decodeURI and decodeURIComponent </button><br />
+    Using Math.random in this format for generating integer values: Math.floor(Math.random() * 10 + 1) it returns a number between 1 and 10.
+    <button onclick='createCar()'> Create a car object running createCar</button><br />
+    <button onclick='createCarWithPrototype()'> Create a car object using prototype</button><br />
+    <button onclick='createCarWithPrototypeAndConstructor()'> Create an object, define nonfunction properties by constructor and the functions (methods) by prototype</button><br />
+    <button onclick='dynamicPrototypeMethod()'> Create car using dynamic prototype method</button><br />
 </div>
 </body>
 </html>
