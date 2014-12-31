@@ -432,6 +432,70 @@
                 }
             }
         }
+
+        function comparePerformance() {
+            function StringBuffer() {
+                this.__strings__ = new Array;
+            }
+
+            StringBuffer.prototype.append = function (str) {
+                this.__strings__.push(str);
+            };
+
+            StringBuffer.prototype.toString = function () {
+                return this.__strings__.join("");
+            };
+
+            var d1 = new Date();
+            var str = "";
+            for(var i = 0; i < 2000000; i++) {
+                str += "text";
+            }
+            var d2 = new Date();
+
+            console.log("Conatenation with plus: " + (d2.getTime() - d1.getTime()) + " Milliseconds");
+
+            var oBuffer = new StringBuffer();
+            d1 = new Date();
+            for(var i = 0; i < 2000000 ; i++) {
+                oBuffer.append("text");
+            }
+            var sResult = oBuffer.toString();
+            d2 = new Date();
+
+            console.log("\n Concatenation with String Buffer: " + (d2.getTime() - d1.getTime()) +" milliseconds ");
+
+        }
+
+        function createNewMethods() {
+
+            // Define a new toHexString method for Number
+            Number.prototype.toHexString = function () {
+                return this.toString(16);
+            };
+            var iNum = 15;
+            console.log(iNum.toHexString());
+
+            // Define enqueue and dequeue methods
+            Array.prototype.enqueue = function (vItem) {
+                this.push(vItem);
+            };
+
+            Array.prototype.dequeue = function () {
+                return this.shift();
+            };
+
+            var aTest = ["1st", "2ed"];
+            aTest.enqueue("3rd");
+            console.log(aTest);
+            aTest.dequeue();
+            console.log(aTest);
+
+
+        }
+
+
+
     </script>
     <button onclick='playURI("encode")'> encodeURI and encodeURIComponent </button><br />
     encodeURIComponent kills full urls, it should be used only for after slash parts.
@@ -439,8 +503,191 @@
     Using Math.random in this format for generating integer values: Math.floor(Math.random() * 10 + 1) it returns a number between 1 and 10.
     <button onclick='createCar()'> Create a car object running createCar</button><br />
     <button onclick='createCarWithPrototype()'> Create a car object using prototype</button><br />
+In the previous chapter, you learned that the best way to create classes is to use the constructor paradigm
+to define the properties and to use the prototype paradigm to define the methods.
     <button onclick='createCarWithPrototypeAndConstructor()'> Create an object, define nonfunction properties by constructor and the functions (methods) by prototype</button><br />
     <button onclick='dynamicPrototypeMethod()'> Create car using dynamic prototype method</button><br />
+    To use prototyping in practice, we define a new method to replace + concatenation for strings. It's faster than +. Besides here we can see how to measure performance in miliseconds.
+    <button onclick='comparePerformance()'> Compaer Performance of + concat and stringbuffer concat</button><br />
+    <button onclick='createNewMethods()'> Create New methods for natives using prototype</button><br />
+</div>
+    <script>
+        function sampleInheritanceMasq() {
+
+            // define a normal class by this
+            function ClassA(sColor) {
+                this.color = sColor;
+                this.sayColor = function () {
+                    console.log(this.color);
+                };
+            }
+
+            // inheritance time!
+            function ClassB(sColor) {
+
+                // just create a method and assign the super class to it!
+                this.newMethod = ClassA;
+                // run it with the param
+                this.newMethod(sColor);
+                // delete the refference, to avoid trouble
+                delete this.newMethod;
+
+                // after this line you can start adding new methods to your child class
+
+            }
+        }
+        function ampleInheritanceCall() {
+
+            function ClassA(sColor) {
+                this.color = sColor;
+                this.sayColor = function () {
+                    console.log(this.color);
+                };
+            }
+
+            // inheritance time!
+            function ClassB(sColor) {
+
+                /*  remove these three lines, and just use call()
+                    this.newMethod = ClassA;
+                    this.newMethod(sColor);
+                    delete this.newMethod;
+                */
+                ClassA.call(this, sColor);
+
+                this.name = sName;
+                this.sayName = function () {
+                    console.log(this.name);
+                }
+
+            }
+
+        }
+
+        function sampleInheritancePrototype() {
+            function ClassA(){
+
+            }
+
+            ClassA.prototype.color = "red";
+            ClassA.prototype.sayColor = function () {
+                console.log(this.color);
+            };
+
+            function ClassB() {
+            }
+
+            ClassB.prototype = new ClassA();
+
+        }
+
+        function polygonClassesSample() {
+
+            function Polygon(iSides) {
+                this.sides = iSides;
+            }
+
+            Polygon.prototype.getArea = function () {
+                return 0;
+            };
+
+            function Triangle(iBase, iHeight) {
+                Polygon.call(this, 3);
+                this.base = iBase;
+                this.height = iHeight;
+            }
+
+            Triangle.prototype = new Polygon();
+            Triangle.prototype.getArea = function () {
+                return 0.5 * this.base * this.height;
+            };
+
+            function Rectangle(iLength, iWidth) {
+                Polygon.call(this, 4);
+                this.length = iLength;
+                this.width = iWidth;
+            }
+
+            Rectangle.prototype = new Polygon();
+            Rectangle.prototype.getArea = function () {
+                return this.length * this.width;
+            };
+
+            // Testing
+            var triangle = new Triangle(12, 4);
+            var rectangle = new Rectangle(22, 10);
+
+            console.log(triangle.sides);
+            console.log(triangle.getArea());
+
+            console.log(rectangle.sides);
+            console.log(rectangle.getArea());
+        }
+        function polygonClassesSampleHybrid() {
+
+            function Polygon(iSides) {
+                this.sides = iSides;
+            }
+
+            Polygon.prototype.getArea = function () {
+                return 0;
+            };
+
+            function Triangle(iBase, iHeight) {
+                Polygon.call(this, 3);
+                this.base = iBase;
+                this.height = iHeight;
+            }
+
+            Triangle.prototype = new Polygon();
+            Triangle.prototype.getArea = function () {
+                return 0.5 * this.base * this.height;
+            };
+
+            function Rectangle(iLength, iWidth) {
+                Polygon.call(this, 4);
+                this.length = iLength;
+                this.width = iWidth;
+            }
+
+            Rectangle.prototype = new Polygon();
+            Rectangle.prototype.getArea = function () {
+                return this.length * this.width;
+            };
+
+            // Testing
+            var triangle = new Triangle(12, 4);
+            var rectangle = new Rectangle(22, 10);
+
+            console.log(triangle.sides);
+            console.log(triangle.getArea());
+
+            console.log(rectangle.sides);
+            console.log(rectangle.getArea());
+        }
+    </script>
+    <div style="background-color:aqua"> <h3> Inheritance ch 4 professional</h3>
+    <button onclick='sampleInheritanceMasq()'> Create an object by Obj Msquerading method  </button><br />
+        Next method is the call() method. Its first param is the object used for this, next ones are exactly send to the function.
+    <button onclick='ampleInheritanceCall()'> Create inheritance by call() </button><br />
+        Next method will be the apply() method. It's the same as call, but the difference is that it's second argument is an array of the arguments. No sample for that in here.
+    <button onclick='sampleInheritancePrototype()'> Inheritance using prototype chains </button><br />
+        The downside to prototype chaining is that it has no support for multiple inheritance.
+    <button onclick='polygonClassesSample()'> create a polygon class, with subclasses like triangles,...</button><br />
+    <button onclick='polygonClassesSampleHybrid()'> Create the polygon class with dynamic prototyping </button><br />
+        zInherit library can be used to simplify the process in javascript.
+    </div>
+<div style="background-color:beige"> <h3> Ch 5 definitive Statements</h3>
+    <script>
+        function defineAFunc(x, y) {
+            return Math.sqrt(x*x + y*y);
+        }
+        function printerFunc(a) {
+            console.log(a);
+        }
+    </script>
+    <button onclick='printerFunc(defineAFunc(10,5))'> Define a simple function  </button><br />
+    Note that the whole function body is also hoisted along with the function name.
 </div>
 </body>
 </html>
